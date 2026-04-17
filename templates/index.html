@@ -4,12 +4,12 @@
         <meta charset="UTF-8">
         <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
         <title> Country Info</title>
-        <link rel = "stylesheet" href="{{url_for('static', filename='style.css')}}">
+        <link rel = "stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
         <h1> COUNTRY INFO</h1>
         <form method = "POST">
-            <input type = "text" name="country" placeholder= "Enter country name.." required>
+            <input type = "text" name="country" placeholder="Enter country name.." required>
             <button type="submit">Search</button>
         </form>
 
@@ -19,13 +19,26 @@
 
         {% if country_data %}
             <div class="card">
-                <img src = "{{ country_data.flag }}" alt="Flag">
+                <img src= "{{ country_data.flag }}" alt="Flag">
                 <h2>{{ country_data.name }}</h2>
                 <p><strong>Capital:</strong> {{ country_data.capital }} </p>
-                 <p><strong>Population:</strong> {{ country_data.population }} </p>
-                  <p><strong>Region:</strong> {{ country_data.region }} </p>
+                <p><strong>Population:</strong> {{ country_data.population }} </p>
+                <p><strong>Region:</strong> {{ country_data.region }} </p>
+                <form method ="POST">
+                    <button type ="submit" name= "add_favourite" value="{{ country_data.name }}"> Save to Faves</button>
+                  </form> 
             </div>
         {% endif %}
+
+        {% if favourites %}
+            <div class="card">
+                <h3>FAVES</h3>
+                {% for country in favourites %}
+                    <p>{{ country }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
 
         </body>
         </html>
